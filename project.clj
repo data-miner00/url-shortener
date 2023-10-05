@@ -5,7 +5,8 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [org.clojure/java.jdbc "0.7.12"]
-                 [mysql/mysql-connector-java "8.0.33"]]
+                 [mysql/mysql-connector-java "8.0.33"]
+                 [com.github.seancorfield/honeysql "2.4.1066"]]
   :main ^:skip-aot url-shortener.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
