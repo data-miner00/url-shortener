@@ -1,0 +1,6 @@
+{:HOST "localhost"
+ :PORT 3306
+ :DBTYPE "mysql"
+ :DBNAME "shorturl"
+ :USER "root"
+ :PASSWORD ""}

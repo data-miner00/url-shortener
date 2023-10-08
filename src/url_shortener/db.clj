@@ -2,14 +2,15 @@
   (:require [clojure.core :as c]
             [clojure.java.jdbc :as j]
             [honey.sql :as sql]
-            [honey.sql.helpers :refer [select from insert-into columns values where] :as h]))
+            [honey.sql.helpers :refer [select from insert-into columns values where] :as h]
+            [url-shortener.env :as e]))
 
-(def mysql-db {:host "localhost"
-               :port 3306
-               :dbtype "mysql"
-               :dbname "shorturl"
-               :user "root"
-               :password ""})
+(def mysql-db {:host (e/env :HOST)
+               :port (e/env :PORT)
+               :dbtype (e/env :DBTYPE)
+               :dbname (e/env :DBNAME)
+               :user (e/env :USER)
+               :password (e/env :PASSWORD)})
 
 (def select-from-redirect
   (-> (select :*)
