@@ -1,7 +1,8 @@
 (ns url-shortener.db
-  (:require [clojure.java.jdbc :as j]
+  (:require [clojure.core :as c]
+            [clojure.java.jdbc :as j]
             [honey.sql :as sql]
-            [honey.sql.helpers :refer :all]))
+            [honey.sql.helpers :refer [select from insert-into columns values where] :as h]))
 
 (def mysql-db {:host "localhost"
                :port 3306
@@ -29,9 +30,9 @@
 
 (defn query-redirect [slug]
   (-> (query (-> (select :url)
-             (from :redirects)
-             (where [:= :slug slug])
-             (sql/format)))
+                 (from :redirects)
+                 (where [:= :slug slug])
+                 (sql/format)))
       first
       :url))
 
@@ -50,6 +51,5 @@
                  ["gg", "https://google.com"]])
                (sql/format {:pretty true})))
   (insert-redirect! "yt" "https://youtube.com")
-  (query-redirect "yt")
-  )
-
+  (query-redirect "yt"))
+  
