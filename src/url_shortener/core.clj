@@ -21,13 +21,20 @@
     (db/insert-redirect! slug url)
     (r/response (str "http://localhost:3001/" slug))))
 
+(defn create-custom-redirect [req]
+  (let [url (get-in req [:body-params :url])
+        slug (get-in req [:body-params :slug])] 
+    (db/insert-redirect! slug url)
+    (r/response (str "http://localhost:3001/" slug))))
+
 (def app
   (ring/ring-handler 
    (ring/router 
     [ "/"
      [":slug" redirect]
      ["api/"
-      ["redirect" {:post create-redirect}]]
+      ["redirect" {:post create-redirect}]
+      ["custom-redirect" {:post create-custom-redirect}]]
      ["" {:handler (fn [req] {:body "welcome to url shortener" :status 200})}]] 
     {:data {:muuntaja m/instance 
             :middleware [muuntaja/format-middleware]}})))
@@ -35,8 +42,8 @@
 (defn start []
   (ring-jetty/run-jetty #'app {:port 3001
                              :join? false}))
+(def server (start))
 
-(defn -main [& args]
-  (def server (start)))
+(defn -main [& args] server)
 
 (comment(.stop server))
