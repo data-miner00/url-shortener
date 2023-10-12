@@ -13,19 +13,19 @@
         url (db/query-redirect slug)]
     (if url
       (r/redirect url 307)
-      (r/not-found "Not found"))))
+      (r/not-found {:message "Not found"}))))
 
 (defn create-redirect [req]
   (let [url (get-in req [:body-params :url])
         slug (slug/generate-slug)]
     (db/insert-redirect! slug url)
-    (r/response (str "http://localhost:3001/" slug))))
+    (r/response {:link (str "http://localhost:3001/" slug)})))
 
 (defn create-custom-redirect [req]
   (let [url (get-in req [:body-params :url])
         slug (get-in req [:body-params :slug])] 
     (db/insert-redirect! slug url)
-    (r/response (str "http://localhost:3001/" slug))))
+    (r/response {:link (str "http://localhost:3001/" slug)})))
 
 (def app
   (ring/ring-handler 
