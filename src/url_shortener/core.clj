@@ -35,7 +35,7 @@
      ["api/"
       ["redirect" {:post create-redirect}]
       ["custom-redirect" {:post create-custom-redirect}]]
-     ["" {:handler (fn [req] {:body "welcome to url shortener" :status 200})}]] 
+     ["" {:handler (fn [_req] {:body "welcome to url shortener" :status 200})}]] 
     {:data {:muuntaja m/instance 
             :middleware [muuntaja/format-middleware]}})))
 
@@ -44,6 +44,6 @@
                              :join? false}))
 (def server (start))
 
-(defn -main [& args] server)
+(defn -main [& _args] server)
 
 (comment(.stop server))

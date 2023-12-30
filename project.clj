@@ -10,7 +10,8 @@
                  [javax.servlet/servlet-api "2.5"]
                  [ring "1.11.0-alpha4"]
                  [metosin/reitit "0.7.0-alpha7"]
-                 [metosin/muuntaja "0.6.8"]]
+                 [metosin/muuntaja "0.6.8"]
+                 [ring/ring-json "0.5.1"]]
   :main ^:skip-aot url-shortener.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
